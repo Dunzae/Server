@@ -19,13 +19,15 @@ jobs:
       - name: SSH and Git Pull on Server
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          USERNAME : ${{ vars.USERNAME }}
+          SERVER_IP : ${{ vars.SERVER_IP }}
         run: |
           # SSH 설정을 위해 개인 키를 파일로 저장
           echo "$SSH_PRIVATE_KEY" > private_key
           chmod 600 private_key
 
           # 서버에 SSH 연결하여 git pull 수행
-          ssh -i private_key -o StrictHostKeyChecking=no ${{ vars.USERNAME }}@${{ vars.SERVER_IP }} 'cd /home/ubuntu/Server && git pull'
+          ssh -i private_key -o StrictHostKeyChecking=no $USERNAME@$SERVER_IP 'cd /home/ubuntu/Server && git pull'
 
           # 사용 후 개인 키 파일 삭제
           rm private_key
