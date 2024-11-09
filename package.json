@@ -4,7 +4,8 @@
   "main": "./src/app.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon",
-    "build" : "cross-env NODE_ENV=production tsc --build"
+    "start" : "cross-env NODE_ENV=production nodemon ./dist/app.js",
+    "build": "tsc --build"
   },
   "author": "",
   "license": "ISC",
@@ -12,10 +13,13 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
-    "mongoose": "^8.7.1"
+    "mongoose": "^8.7.1",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "nodemon": "^3.1.7",
+    "typescript": "^5.6.3"
   }
 }
