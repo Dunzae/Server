@@ -1,10 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import fs from "fs"
 import cors from "cors";
-import https from "https"
-import instagramRouter from "./routes/instagram/main"
 
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 const app = express();
@@ -15,7 +12,8 @@ app.use(express.json());
 app.use(express.static("files"));
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/instagram", instagramRouter);
+app.use("/", mainRouter);
+
 async function main() {
   try {
     await mongoose.connect(MONGO_URI as string, { serverApi: { version: "1", strict: true, deprecationErrors: true }, dbName : "portfolio" });

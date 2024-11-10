@@ -1,1 +1,1 @@
-{"root":["../src/app.ts","../src/connectdb.ts"],"version":"5.6.3"}
+{"root":["../src/app.ts","../src/@types/global.d.ts","../src/middlewares/instagram/check.ts","../src/models/instagram/comment.ts","../src/models/instagram/post.ts","../src/models/instagram/user.ts","../src/routes/instagram/comment.ts","../src/routes/instagram/main.ts","../src/routes/instagram/post.ts","../src/routes/instagram/user.ts","../src/utils/instagram/jwt.ts","../src/utils/instagram/removefile.ts"],"version":"5.6.3"}

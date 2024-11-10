@@ -13,20 +13,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const connectDb_1 = __importDefault(require("./connectDb"));
+const cors_1 = __importDefault(require("cors"));
+const main_1 = __importDefault(require("./routes/instagram/main"));
 dotenv_1.default.config({ path: `.env.${process.env.NODE_ENV}` });
 const app = (0, express_1.default)();
 const { PORT, MONGO_URI } = process.env;
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+app.use((0, cors_1.default)());
+app.use(express_1.default.json());
+app.use(express_1.default.static("files"));
+app.use(express_1.default.urlencoded({ extended: true }));
+app.use("/instagram", main_1.default);
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        const con = yield (0, connectDb_1.default)(MONGO_URI);
-        app.listen(PORT, () => {
-            console.log(`Example app listening on port ${PORT}`);
-        });
+        try {
+            yield mongoose_1.default.connect(MONGO_URI, { serverApi: { version: "1", strict: true, deprecationErrors: true }, dbName: "portfolio" });
+            app.listen(PORT, () => {
+                console.log(`[Server] : Server is running at 0.0.0.0:${PORT}`);
+            });
+        }
+        catch (e) {
+            console.error(e);
+        }
     });
 }
 main();
