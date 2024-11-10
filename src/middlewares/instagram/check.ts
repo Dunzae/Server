@@ -20,9 +20,10 @@ export default async function (
 		req.headers["authorization"] === undefined ||
 		req.headers["authorization"].split("Bearer").length !== 2
 	) {
-		return res.status(400).send({
+		res.status(400).send({
 			message: "AccessToken is empty",
 		});
+		return;
 	}
 
 	const accessToken = req.headers["authorization"].split("Bearer ")[1];
@@ -31,15 +32,16 @@ export default async function (
 		const decodedAccessToken = await validateToken(accessToken);
 
 		if (decodedAccessToken.isExpired) {
-			return res.status(401).send("AccessToken is expired");
+			res.status(401).send("AccessToken is expired");
+			return;
 		}
 
 		if (decodedAccessToken.token !== undefined) {
 			req.user = decodedAccessToken.token as JwtPayload;
-			return next();
+			next();
 		}
 	} catch (error) {
 		console.error(error);
-		return res.status(500).send({ message: "Unknown error" });
+		res.status(500).send({ message: "Unknown error" });
 	}
 }
