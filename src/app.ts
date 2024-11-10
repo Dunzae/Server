@@ -17,7 +17,7 @@ app.use("/instagram", instagramRouter);
 
 async function main() {
   try {
-    await mongoose.connect(MONGO_URI as string, { serverApi: { version: "1", strict: true, deprecationErrors: true } });
+    await mongoose.connect(MONGO_URI as string, { serverApi: { version: "1", strict: true, deprecationErrors: true }, dbName : "portfolio" });
     app.listen(PORT, () => {
 
       console.log(
