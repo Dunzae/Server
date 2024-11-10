@@ -5,8 +5,8 @@ import userRouter from "./user";
 import checkMiddleware from "@middlewares/instagram/check"
 
 const router = express.Router();
-router.use("/comment", commentRouter, checkMiddleware);
-router.use("/post", postRouter, checkMiddleware);
+router.use("/comment", checkMiddleware, commentRouter);
+router.use("/post", checkMiddleware, postRouter);
 router.use("/user", userRouter);
 
 export default router;
