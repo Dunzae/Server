@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
+import instagramRouter from "./routes/instagram/main"
 
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 const app = express();
@@ -12,13 +13,15 @@ app.use(express.json());
 app.use(express.static("files"));
 app.use(express.urlencoded({ extended: true }));
 
+app.use("/instagram", instagramRouter);
+
 async function main() {
   try {
     await mongoose.connect(MONGO_URI as string, { serverApi: { version: "1", strict: true, deprecationErrors: true } });
     app.listen(PORT, () => {
 
       console.log(
-        `[Server] : Server is running at 172.26.96.1:${PORT}`
+        `[Server] : Server is running at 0.0.0.0:${PORT}`
       );
     });
   } catch (e) {
